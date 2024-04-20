@@ -16,10 +16,16 @@ jobs:
         with:
           node-version: "14"
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Link
         run: npm run eslint
       - name: Build
         run: npm run build
       - name: Test
         run: npm run test
+      - name: E2E tests
+        uses: cypress-io/github-action@v2
+        with:
+          command: npm run test:e2e
+          start: npm run start-test
+          wait-on: http://localhost:5000
